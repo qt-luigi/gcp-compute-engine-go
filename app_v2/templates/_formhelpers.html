@@ -1,0 +1,27 @@
+{{ define "stringhelpers" }}
+  <dt>{{ .Label }}
+  <dd><input type="{{ .Type }}" id="{{ .Name }}" name="{{ .Name }}" value="{{ .Value }}">
+  {{if .Errors}}
+    <ul class=errors>
+    {{range .Errors}}
+      <li>{{ .}}</li>
+    {{end}}
+    </ul>
+  {{end}}
+  </dd>
+  </dt>
+{{end}}
+
+{{ define "textareahelpers" }}
+  <dt>{{ .Label }}
+  <dd><textarea id="{{ .Name }}" name="{{ .Name }}" >{{ .Value }}</textarea>
+  {{if .Errors}}
+    <ul class=errors>
+    {{range .Errors}}
+      <li>{{ .}}</li>
+    {{end}}
+    </ul>
+  {{end}}
+  </dd>
+  </dt>
+{{end}}
