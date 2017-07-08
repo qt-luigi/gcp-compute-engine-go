@@ -4,11 +4,16 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"path/filepath"
 	"strings"
 	"time"
 
 	_ "github.com/mattn/go-sqlite3"
 )
+
+// path 変数は、インストールパスです。
+// ローカル実行の際は""に変更してください。
+const installPath = "/opt/dengonban/v1"
 
 // db 変数は、データベース情報を保持します。
 var db Database
@@ -105,7 +110,7 @@ func post(w http.ResponseWriter, r *http.Request) {
 // 本init 関数では、ルーティングとハンドラー関数を設定します。
 func init() {
 	// 静的ファイルパスを設定
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(filepath.Join(installPath, "static")))))
 	// 動的ページのパスとハンドラーを設定
 	http.HandleFunc("/", index)
 	http.HandleFunc("/messages", messages)
@@ -114,6 +119,7 @@ func init() {
 
 // main 関数は、エントリーポイントです。
 func main() {
+	// ローカル実行の際は":8080"に変更して「http://localhost:8080」でアクセスしてください。
 	if err := http.ListenAndServe(":80", nil); err != nil {
 		log.Fatal(err)
 	}

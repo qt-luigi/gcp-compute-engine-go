@@ -1,6 +1,6 @@
 # 現在テスト中です！（2017年7月8日 現在）
 
-Compute Engine上から本リポジトリーを取得して動作確認を行うためにGitHubにpushした状態です。動作確認が完了しましたら本セクションを削除します。
+Compute Engine上から本リポジトリーを取得して動作確認を行うためにGitHubにpushした状態です。app_v1の動作確認は完了しました。app_v2の動作確認が完了しましたら本「現在テスト中です！」セクションの文章を削除します。
 
 # このリポジトリーについて
 
@@ -32,7 +32,7 @@ Goがインストールされているか確認します。
 $ go version
 ```
 
-インストールされていない場合、インストールします。
+インストールされていない場合、インストールします。私が `sudo apt-get install go` でインストールした時はgo 1.3.3がインストールされてしまったので、ここでは公式サイトから最新版を取得する手順を示しています。
 
 ```bash
 $ curl -O https://storage.googleapis.com/golang/go1.8.3.linux-amd64.tar.gz
@@ -54,14 +54,36 @@ $ sqlite3 -version
 
 ```bash
 $ sudo apt-get install sqlite3
-$ sqlite3 -version
 ```
 
-本リポジトリーとGo用のSQLite3ドライバーを `go get` します。
+Gitがインストールされているか確認します。（ `go get` 時に使用します）
 
 ```bash
-$ go get https://github.com/qt-luigi/gcp-compute-engine-go
-$ go get https://github.com/mattn/go-sqlite3
+$ git version
+```
+
+インストールされていない場合、別途インストールします。
+
+```bash
+$ sudo apt-get install git
+```
+
+GCCがインストールされているか確認します。（go-sqlite3で使用します）
+
+```bash
+$ gcc -v
+```
+
+インストールされていない場合、別途インストールします。
+
+```bash
+$ sudo apt-get install gcc
+```
+
+本リポジトリーのapp_v1を `go get` します。（`-u` は最新版の取得、`-d` はダウンロードのみ）
+
+```bash
+$ go get -u -d github.com/qt-luigi/gcp-compute-engine-go/app_v1
 ```
 
 ソースコードをコンパイルして、実行バイナリー「app」を作成します。
@@ -75,22 +97,27 @@ $ go build -o app *.go
 
 ## ローカルで実行
 
-GoとSQLite3がインストールされていない場合、インストールします。
+Go、SQLite3、Git、GCCがインストールされていない場合、インストールします。
 
-本リポジトリーとGo用のSQLite3ドライバーを `go get` します。
+本リポジトリーのapp_v1を `go get` します。（`-u` は最新版の取得、`-d` はダウンロードのみ）
 
 ```bash
-$ go get https://github.com/qt-luigi/gcp-compute-engine-go
-$ go get https://github.com/mattn/go-sqlite3
+$ go get -u -d https://github.com/qt-luigi/gcp-compute-engine-go/app_v1
 ```
 
-macOS Sierraで動作させる場合、 `app.go` ファイル内のポート番号を `:80` から `:8080` に書き換える必要がありました。
+`app.go` ファイルの次の箇所をコメントに従って書き換えてください。
+
+```go
+// ローカル実行の際は""に変更してください。
+const installPath = "/opt/dengonban/v1"
+```
 
 ```go
 func main() {
-        if err := http.ListenAndServe(":8080", nil); err != nil {
-            log.Fatal(err)
-        }
+    // ローカル実行の際は":8080"に変更して「http://localhost:8080」でアクセスしてください。
+    if err := http.ListenAndServe(":80", nil); err != nil {
+        log.Fatal(err)
+    }
 }
 ```
 
@@ -111,14 +138,14 @@ $ go run *.go
 
 app_v2はapp_v1のデータベースがCloud SQL(MySQL)に置き換わったものです。
 
-Go用のMySQLドライバーを `go get` してください。
+本リポジトリーのapp_v2を `go get` します。（`-u` は最新版の取得、`-d` はダウンロードのみ）
 
 ```bash
-$ go get https://github.com/go-sql-driver/mysql
+$ go get -u -d github.com/qt-luigi/gcp-compute-engine-go/app_v2
 ```
+
+その他についてはapp_v1を参照してください。
 
 # app_v3
 
 現在、移植中です。
-
-
