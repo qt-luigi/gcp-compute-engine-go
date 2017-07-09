@@ -1,7 +1,3 @@
-# 現在テスト中です！（2017年7月8日 現在）
-
-Compute Engine上から本リポジトリーを取得して動作確認を行うためにGitHubにpushした状態です。app_v1の動作確認は完了しました。app_v2の動作確認が完了しましたら本「現在テスト中です！」セクションの文章を削除します。
-
 # このリポジトリーについて
 
 書籍「[プログラマのためのGoogle Cloud Platform入門](http://www.shoeisha.co.jp/book/detail/9784798137148)」の「第2章 Webアプリケーション実行基盤を構築しよう」で使用および提供されているPython製のサンプルアプリケーションをGoに書き換えてみました。サンプルは掲示板アプリケーションでGoogle Compute Engineにデプロイして使用することが前提となっています。
@@ -144,8 +140,14 @@ app_v2はapp_v1のデータベースがCloud SQL(MySQL)に置き換わったも�
 $ go get -u -d github.com/qt-luigi/gcp-compute-engine-go/app_v2
 ```
 
-その他についてはapp_v1を参照してください。
+セットアップについてはapp_v1を、GCP作業については書籍を、参照してください。
 
 # app_v3
 
 現在、移植中です。
+
+# 自分用メモ
+
+systemdのログ表示:
+
+- `$ sudo journalctl -u dengonban.service`
