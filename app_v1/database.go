@@ -9,7 +9,7 @@ const (
 	// QueryDML 定数は、idの降順でソートしたmessageデータを全件取得するselect文です。
 	QueryDML = "select id, timestamp, name, message, filename from message order by id desc"
 	// AddDML 定数は、messageデータを１件登録するinsert文です。
-	AddDML = "insert into message(id, timestamp, name, message, filename) values(?, ?, ?, ?, ?)"
+	AddDML = "insert into message(timestamp, name, message, filename) values(?, ?, ?, ?)"
 )
 
 // Database 構造体は、DBとテーブルの作成、データの取得および登録を行います。
@@ -73,9 +73,6 @@ func (d Database) Query(limit int) (Messages, error) {
 	return messages, nil
 }
 
-// gen 変数は、発番を保持します。（簡易実装のため重複発番する可能性あり）
-var gen int
-
 // Add メソッドは、messageデータを１件登録します。
 func (d Database) Add(m Message) error {
 	// DBオーブン
@@ -95,11 +92,8 @@ func (d Database) Add(m Message) error {
 		return err
 	}
 	defer stmt.Close()
-	// id発番（簡易実装のため重複発番する可能性あり）
-	gen++
-	m.ID = gen
 	// SQL文を実行
-	_, err = stmt.Exec(m.ID, m.Timestamp, m.Name, m.Message, m.Filename)
+	_, err = stmt.Exec(m.Timestamp, m.Name, m.Message, m.Filename)
 	if err != nil {
 		return err
 	}

@@ -19,6 +19,7 @@ const installPath = "/opt/dengonban/v1"
 var db Database
 
 // ddl 定数は、DBに作成するテーブルの定義文です。
+// id はintegerのため自動発番されます。
 const ddl = `
 	create table message (
 		id integer primary key,
