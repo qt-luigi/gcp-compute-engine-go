@@ -28,9 +28,10 @@ const (
 var db Database
 
 // ddl 定数は、DBに作成するテーブルの定義文です。
+// id はauto_increment指定のため自動発番されます。
 const ddl = `
 	create table if not exists message (
-		id integer primary key,
+		id integer primary key auto_increment,
 		timestamp varchar(19),
 		name varchar(16),
 		message varchar(1024),
