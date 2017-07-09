@@ -29,7 +29,7 @@ var db Database
 
 // ddl 定数は、DBに作成するテーブルの定義文です。
 const ddl = `
-	create table if not exist message (
+	create table if not exists message (
 		id integer primary key,
 		timestamp varchar(19),
 		name varchar(16),
