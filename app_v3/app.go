@@ -82,7 +82,7 @@ func IsImage(filename string) error {
 		}
 	}
 	if !ok {
-		return fmt.Errorf("file extend error")
+		return fmt.Errorf("file extension error")
 	}
 	return nil
 }
