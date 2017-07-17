@@ -76,6 +76,7 @@ func messages(w http.ResponseWriter, r *http.Request) {
 	lastMessages, err := db.Query(5)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 	lastMessages.Reverse()
 	data := struct {
@@ -95,12 +96,14 @@ func post(w http.ResponseWriter, r *http.Request) {
 		jst, err := time.LoadLocation("Asia/Tokyo")
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 		timestamp := time.Now().UTC().In(jst).Format("2006/01/02 15:04:05")
 		name := r.FormValue("input_name")
 		message := r.FormValue("input_message")
 		if err := db.Add(Message{Timestamp: timestamp, Name: name, Message: message}); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
 		}
 		data := struct {
 			Name      string
