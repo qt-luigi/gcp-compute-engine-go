@@ -139,9 +139,8 @@ func post(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
-		f := form.InputPhoto.File
-		defer f.Close()
 		if ferr == nil {
+			f := form.InputPhoto.File
 			fh := form.InputPhoto.FileHandler
 			filename := uuid.NewV4().String() + path.Ext(fh.Filename)
 			if err := UploadFromFilename(f, fh, bucketName, filename); err != nil {

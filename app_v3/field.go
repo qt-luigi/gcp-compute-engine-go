@@ -59,7 +59,11 @@ func NewTextAreaField(r *http.Request, name, label string, validators []Validato
 
 // NewUploadField 関数は、指定された値で初期化されたUploadField構造体を生成します。
 func NewUploadField(r *http.Request, name, label string, validators []Validator) UploadField {
-	f := Field{Name: name, Label: label, Value: r.FormValue(name), Validators: validators}
 	file, handler, err := r.FormFile(name)
+	value := ""
+	if handler != nil {
+		value = handler.Filename
+	}
+	f := Field{Name: name, Label: label, Value: value, Validators: validators}
 	return UploadField{Field: f, Type: "file", File: file, FileHandler: handler, FileError: err}
 }
