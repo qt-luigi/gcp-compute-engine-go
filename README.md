@@ -144,7 +144,7 @@ $ go get -u -d github.com/qt-luigi/gcp-compute-engine-go/app_v2
 
 # app_v3
 
-現在、移植中です。
+2017年7月17日現在、GCE上でテストするためにpushしているだけの状態のため使用しないでください。
 
 # 自分用メモ
 
