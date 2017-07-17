@@ -34,8 +34,7 @@ const ddl = `
 func init() {
 	dsn := "./message.db"
 	db = Database{DriverName: "sqlite3", DataSourceName: dsn}
-	err := db.CreateAll(ddl)
-	if err != nil {
+	if err := db.CreateAll(ddl); err != nil {
 		log.Fatal(err)
 	}
 }
