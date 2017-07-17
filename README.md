@@ -98,7 +98,7 @@ Go、SQLite3、Git、GCCがインストールされていない場合、イン�
 本リポジトリーのapp_v1を `go get` します。（`-u` は最新版の取得、`-d` はダウンロードのみ）
 
 ```bash
-$ go get -u -d https://github.com/qt-luigi/gcp-compute-engine-go/app_v1
+$ go get -u -d github.com/qt-luigi/gcp-compute-engine-go/app_v1
 ```
 
 `app.go` ファイルの次の箇所をコメントに従って書き換えてください。
@@ -144,7 +144,15 @@ $ go get -u -d github.com/qt-luigi/gcp-compute-engine-go/app_v2
 
 # app_v3
 
-2017年7月17日現在、GCE上でテストするためにpushしているだけの状態のため使用しないでください。
+app_v3はapp_v2に画像ファイルをアップロードしてCloud Storageに格納する機能が追加されています。
+
+本リポジトリーのapp_v3を `go get` します。（`-u` は最新版の取得、`-d` はダウンロードのみ）
+
+```bash
+$ go get -u -d github.com/qt-luigi/gcp-compute-engine-go/app_v3
+```
+
+セットアップについてはapp_v2を、GCP作業については書籍を、参照してください。
 
 # 自分用メモ
 
